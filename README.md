@@ -1,4 +1,4 @@
-# Welcome Hyland Rocket RPA
+# Welcome to Hyland Rocket RPA API Helper
 With this dll you are able to connect to the Hyland RPA API.
 ## Dependencies
 
