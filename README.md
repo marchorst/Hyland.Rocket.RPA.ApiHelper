@@ -1,4 +1,4 @@
-# Welcome to Hyland Rocket RPA ApiHelper
+# Welcome Hyland Rocket RPA
 With this dll you are able to connect to the Hyland RPA API.
 ## Dependencies
 
@@ -49,3 +49,15 @@ To create a new task you can either use the Create Method with some parameters o
 To get a Task by the TaskID you can either use an ITask object or use the TaskID as an integer.
 
     ITask task = rpaApiObject.TasksRoute().Get(task);
+# Helpers
+ ## Serialize a DataTable
+
+     RpaHelper.SerializeDataTable(DataTable table)
+
+ ## Serialize to JSON
+
+    RpaHelper.ToJson(object o)
+
+## Serialize any other
+
+    RpaHelper.Serialize<T>(T obj)
