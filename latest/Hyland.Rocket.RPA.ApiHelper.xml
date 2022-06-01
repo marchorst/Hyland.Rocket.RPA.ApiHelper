@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Hyland.Rocket.RPA.ApiHelper</name>
+    </assembly>
+    <members>
+        <member name="T:Hyland.Rocket.RPA.ApiHelper.Messages.NewTask">
+            <summary>
+            Data to create a new task
+            </summary>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.Routes.TasksRoute.Get(Hyland.Rocket.RPA.ApiHelper.Messages.ITask,System.Boolean)">
+            <summary>
+            Get a task by TaskID
+            </summary>
+            <param name="task">Task object</param>
+            <param name="ignoreSSL">Ignore SSL Validation</param>
+            <returns>The task object</returns>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.Routes.TasksRoute.Get(System.Int32,System.Boolean)">
+            <summary>
+            Get a task by TaskID
+            </summary>
+            <param name="taskid">The TaskID</param>
+            <param name="ignoreSSL">Ignore SSL Validation</param>
+            <returns>The task object</returns>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.Routes.TasksRoute.Create(Hyland.Rocket.RPA.ApiHelper.Messages.NewTask,System.Boolean)">
+            <summary>
+            Create a new task
+            </summary>
+            <param name="taskData">Task Data</param>
+            <param name="ignoreSSL">Ignore SSL Validation</param>
+            <returns>Create task object</returns>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.Routes.TasksRoute.Create(System.Int32,System.String,Hyland.Rocket.RPA.ApiHelper.RpaTaskType,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Create a new RPA Task
+            </summary>
+            <param name="processId">The RPA ProcessID</param>
+            <param name="inputData">Input data as string (I.e. serialized DataTable)</param>
+            <param name="type">RPA Task Type (PRO / DCO)</param>
+            <param name="diversity">Uniquie Diversity, default is empty</param>
+            <param name="redoable">Default is false</param>
+            <param name="checkDiversity">Check diversity, a task will only be created if the diversity is unique. Default is false</param>
+            <param name="ignoreSSL">Do not validate any SSL certificate (When using self signed certificate)</param>
+            <returns>The RPA TaskID</returns>
+        </member>
+        <member name="T:Hyland.Rocket.RPA.ApiHelper.RpaApi">
+            <summary>
+            Access the RPA API and create new tasks
+            </summary>
+        </member>
+        <member name="P:Hyland.Rocket.RPA.ApiHelper.RpaApi.Tasks">
+            <summary>
+            Get the TasksRoute CRUD
+            </summary>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.RpaApi.TasksRoute">
+            <summary>
+            Get the TasksRoute CRUD
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.RpaApi.#ctor(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Initilize the Class
+            </summary>
+            <param name="domainWithProtocol">Example: https://test.local - NO ENDING /</param>
+            <param name="clientId">The ClientID</param>
+            <param name="username">A valid username</param>
+            <param name="password">A valid Password</param>
+            <param name="getAccessToken">Run the AccessToken method directly</param>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.RpaApi.GetAccessToken(System.Boolean)">
+            <summary>
+            Get the Bearer Access BearerToken
+            </summary>
+            <param name="ignoreSSL">Do not validate any SSL certificate (When using self signed certificate)</param>
+            <returns>Bearer Access BearerToken</returns>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.RpaApi.CreateTask(System.Int32,System.String,Hyland.Rocket.RPA.ApiHelper.RpaTaskType,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            DEPRECATED
+            <summary>
+            Create a new RPA Task
+            </summary>
+            <param name="processId">The RPA ProcessID</param>
+            <param name="inputData">Input data as string (I.e. serialized DataTable)</param>
+            <param name="type">RPA Task Type (PRO / DCO)</param>
+            <param name="diversity">Uniquie Diversity, default is empty</param>
+            <param name="redoable">Default is false</param>
+            <param name="checkDiversity">Check diversity, a task will only be created if the diversity is unique. Default is false</param>
+            <param name="ignoreSSL">Do not validate any SSL certificate (When using self signed certificate)</param>
+            <returns>The RPA TaskID</returns>
+        </member>
+        <member name="M:Hyland.Rocket.RPA.ApiHelper.RpaHelper.ToJson(System.Object)">
+            <summary>
+            Converts an object to a json string
+            </summary>
+            <param name="o">Object</param>
+            <returns>JSON String</returns>
+        </member>
+        <member name="T:Hyland.Rocket.RPA.ApiHelper.RpaTaskType">
+            <summary>
+            RPA TaskType - PRO / DCO
+            </summary>
+        </member>
+    </members>
+</doc>
