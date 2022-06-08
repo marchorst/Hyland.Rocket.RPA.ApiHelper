@@ -44,7 +44,7 @@ https://docs.hyland.com/RPA/en_US/22/1/RPAP/RPA_Platform.htm \
     // Initialize the API Connection
     var rpaApiObject = new RpaApi("https://your.domain.without.ending.slash", "Heart's Client ID", "USERNAME", "PASSWORD");
     
-    Hint: Heart's Client ID Note: The ID can be found in Heart's appsettings.json file at HeartServer:Swagger:ClientId
+Hint: Heart's Client ID Note: The ID can be found in Heart's appsettings.json file at HeartServer:Swagger:ClientId
 <a name="createtask"></a>
 ### Create a new Task
 To create a new task you can either use the Create Method with some parameters or create a new "NewTask" object and use this as your parameter.
