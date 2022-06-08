@@ -3,13 +3,15 @@ With this dll you are able to connect to the Hyland RPA API.
 - [Getting started](#gettingstarted)
     - [Download](#download)
     - [Dependencies](#dependencies)
-	- [Connect throw the API](#connect)
-	- [Create a new Task](#createtask)
-	    - [Example create a new Task with a DataTable](#createtaskdatatable)
-	- [Get Task](#gettask)
+        - [External references](#externalrefs)
+        - [Preconditions](#preconditions)
+    - [Connect throw the API](#connect)
+    - [Create a new Task](#createtask)
+        - [Example create a new Task with a DataTable](#createtaskdatatable)
+    - [Get Task](#gettask)
 - [Helpers](#helpers)
-	- [Serialize DataTable](#serializedt)
-	- [Serialize JSON](#serializejson)
+        - [Serialize DataTable](#serializedt)
+        - [Serialize JSON](#serializejson)
     - [Serialize other](#serializeother)
 - [Additional hints](#additional)
     - [OnBase Studio](#additionalstudio)
@@ -23,18 +25,26 @@ You can get the latest version in the releases here:\
 https://github.com/marchorst/Hyland.Rocket.RPA.ApiHelper/releases/latest
 <a name="dependencies"></a>
 ### Dependencies
-
+<a name="externalrefs"></a>
+#### External references
 | Name | Version | Target Framework | Download
 |--|--|--|--|
 | Newtonsoft.Json | 11.0.2 | net452 |https://nuget.info/packages/Newtonsoft.Json/11.0.2 |
 | RestSharp | 106.15.0 | net452 | https://nuget.info/packages/RestSharp/106.15.0 |
 
 You can use any other version from the dependencies as well, but it is yet tested only with these versions.
+<a name="preconditions"></a>
+#### Preconditions
+Be sure to follow the documentation for direct API Access here:\
+https://docs.hyland.com/RPA/en_US/22/1/RPAP/RPA_Platform.htm \
+(Administration->Direct API requests with Postman)
 <a name="connect"></a>
 ### Connect throw the API
 
     // Initialize the API Connection
-    var rpaApiObject = new RpaApi("https://your.domain.without.ending.slash", "CLIENTID", "USERNAME", "PASSWORD");
+    var rpaApiObject = new RpaApi("https://your.domain.without.ending.slash", "Heart's Client ID", "USERNAME", "PASSWORD");
+    
+    Hint: Heart's Client ID Note: The ID can be found in Heart's appsettings.json file at HeartServer:Swagger:ClientId
 <a name="createtask"></a>
 ### Create a new Task
 To create a new task you can either use the Create Method with some parameters or create a new "NewTask" object and use this as your parameter.
