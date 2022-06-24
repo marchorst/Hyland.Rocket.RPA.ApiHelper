@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyland.Rocket.RPA.ApiHelper", "Hyland.Rocket.RPA.ApiHelper\Hyland.Rocket.RPA.ApiHelper.csproj", "{EF22F3B8-910A-4C35-ADB0-19E532475E18}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7FC1CA84-730F-414E-83F8-3CF30E13DE23}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

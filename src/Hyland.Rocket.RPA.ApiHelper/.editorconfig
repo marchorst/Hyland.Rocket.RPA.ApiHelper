@@ -130,7 +130,7 @@ csharp_style_prefer_null_check_over_type_check = true:warning
 # 'var' preferences
 csharp_style_var_for_built_in_types = true:suggestion
 csharp_style_var_when_type_is_apparent = true:suggestion
-csharp_style_var_elsewhere = true:suggestion
+csharp_style_var_elsewhere = true:none
 # Expression-bodied members
 csharp_style_expression_bodied_methods = true:warning
 csharp_style_expression_bodied_constructors = true:warning
@@ -178,10 +178,10 @@ dotnet_remove_unnecessary_suppression_exclusions = none:warning
 
 # C# Unnecessary code rules
 [*.{cs,csx,cake}]
-csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
-dotnet_diagnostic.IDE0058.severity = suggestion
-csharp_style_unused_value_assignment_preference = discard_variable:suggestion
-dotnet_diagnostic.IDE0059.severity = suggestion
+csharp_style_unused_value_expression_statement_preference = discard_variable:none
+dotnet_diagnostic.IDE0058.severity = none
+csharp_style_unused_value_assignment_preference = discard_variable:none
+dotnet_diagnostic.IDE0059.severity = none
 
 ##########################################
 # Formatting Rules

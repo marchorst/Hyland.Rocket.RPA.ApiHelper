@@ -4,10 +4,10 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Hyland.Rocket.RPA.ApiHelper.Messages;
+    using Messages;
     using Newtonsoft.Json;
     using RestSharp;
-    using Task = Hyland.Rocket.RPA.ApiHelper.Messages.Task;
+    using Task = Messages.Task;
 
     public class TasksRoute : IRoute
     {
@@ -20,33 +20,33 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
         /// Get a task by TaskID
         /// </summary>
         /// <param name="task">Task object</param>
-        /// <param name="ignoreSSL">Ignore SSL Validation</param>
+        /// <param name="ignoreSsl">Ignore SSL Validation</param>
         /// <returns>The task object</returns>
-        public ITask Get(ITask task, bool ignoreSSL = true)
-        {
-            return Get(task.taskId, ignoreSSL);
-        }
+        public ITask Get(ITask task, bool ignoreSsl = true) => this.Get(task.TaskId, ignoreSsl);
 
         /// <summary>
         /// Get a task by TaskID
         /// </summary>
         /// <param name="taskid">The TaskID</param>
-        /// <param name="ignoreSSL">Ignore SSL Validation</param>
+        /// <param name="ignoreSsl">Ignore SSL Validation</param>
         /// <returns>The task object</returns>
-        public ITask Get(int taskid, bool ignoreSSL = true)
+        public ITask Get(int taskid, bool ignoreSsl = true)
         {
             // Create RPA TASK
-            var client = new RestClient(DomainWithProtocol + "/heart/api/tasks/" + taskid);
-            if (ignoreSSL)
+            var client = new RestClient(this.DomainWithProtocol + "/heart/api/tasks/" + taskid);
+            if (ignoreSsl)
+            {
                 client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            }
+
             var request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", BearerToken);
+            request.AddHeader("Authorization", this.BearerToken);
 
             var response = client.Execute(request);
             Task result = null;
             try
             {
-                JsonSerializer deserializer = JsonSerializer.Create();
+                var deserializer = JsonSerializer.Create();
                 result = deserializer.Deserialize<Task>(new JsonTextReader(new StringReader(response.Content)));
             }
             catch (Exception e)
@@ -65,13 +65,11 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
         /// Create a new task
         /// </summary>
         /// <param name="taskData">Task Data</param>
-        /// <param name="ignoreSSL">Ignore SSL Validation</param>
+        /// <param name="ignoreSsl">Ignore SSL Validation</param>
         /// <returns>Create task object</returns>
-        public ITask Create(NewTask taskData, bool ignoreSSL = true)
-        {
-            return Create(taskData.processId, taskData.inputData, taskData.type, taskData.diversity, taskData.redoable,
-                taskData.checkDiversity, ignoreSSL);
-        }
+        public ITask Create(NewTask taskData, bool ignoreSsl = true) =>
+            this.Create(taskData.ProcessId, taskData.InputData, taskData.Type, taskData.Diversity, taskData.Redoable,
+                taskData.CheckDiversity, ignoreSsl);
 
         /// <summary>
         /// Create a new RPA Task
@@ -82,29 +80,32 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
         /// <param name="diversity">Uniquie Diversity, default is empty</param>
         /// <param name="redoable">Default is false</param>
         /// <param name="checkDiversity">Check diversity, a task will only be created if the diversity is unique. Default is false</param>
-        /// <param name="ignoreSSL">Do not validate any SSL certificate (When using self signed certificate)</param>
+        /// <param name="ignoreSsl">Do not validate any SSL certificate (When using self signed certificate)</param>
         /// <returns>The RPA TaskID</returns>
         public ITask Create(int processId, string inputData, RpaTaskType type = RpaTaskType.PRO, string diversity = "",
-            bool redoable = false, bool checkDiversity = false, bool ignoreSSL = true)
+            bool redoable = false, bool checkDiversity = false, bool ignoreSsl = true)
         {
-            var client = new RestClient(DomainWithProtocol + "/heart/api/tasks");
-            if (ignoreSSL)
+            var client = new RestClient(this.DomainWithProtocol + "/heart/api/tasks");
+            if (ignoreSsl)
+            {
                 client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            }
+
             var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", BearerToken);
+            request.AddHeader("Authorization", this.BearerToken);
             var newBody = new CreateRpaTaskBody()
             {
-                checkDiversity = checkDiversity,
-                processId = processId,
-                type = (type == RpaTaskType.PRO ? "PRO" : "DCO"),
-                amount = 1,
-                status = "pending",
-                priority = "Now",
-                source = "Hyland Rocket API World",
-                inputData = inputData,
-                diversity = diversity,
-                executionDate = null,
-                redoable = redoable
+                CheckDiversity = checkDiversity,
+                ProcessId = processId,
+                Type = type == RpaTaskType.PRO ? "PRO" : "DCO",
+                Amount = 1,
+                Status = "pending",
+                Priority = "Now",
+                Source = "Hyland Rocket API World",
+                InputData = inputData,
+                Diversity = diversity,
+                ExecutionDate = null,
+                Redoable = redoable
             };
 
             request.AddParameter("application/json", RpaHelper.ToJson(newBody), ParameterType.RequestBody);
@@ -112,7 +113,7 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
             List<Task> results = null;
             try
             {
-                JsonSerializer deserializer = JsonSerializer.Create();
+                var deserializer = JsonSerializer.Create();
                 results = deserializer.Deserialize<List<Task>>(new JsonTextReader(new StringReader(response.Content)));
             }
             catch (Exception e)

@@ -4,11 +4,11 @@ namespace Hyland.Rocket.RPA.ApiHelper.Messages
 
     public interface ITask
     {
-        int taskId { get; set; }
-        string type { get; set; }
-        string status { get; set; }
-        string diversity { get; set; }
-        string outputdata { get; set; }
-        List<Run> runs { get; set; }
+        int TaskId { get; set; }
+        string Type { get; set; }
+        string Status { get; set; }
+        string Diversity { get; set; }
+        string Outputdata { get; set; }
+        List<Run> Runs { get; set; }
     }
 }

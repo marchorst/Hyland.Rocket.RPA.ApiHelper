@@ -66,15 +66,15 @@ To create a new task you can either use the Create Method with some parameters o
     // You can create a new task either with the method above or use a "NewTask" Object as parameter.
     
     // 2.
-    var newTaskObject = new NewTask()
-    {
-    	checkDiversity = true,
-    	diversity = "Test",
-    	inputData = inputData,
-    	processId = 1,
-    	redoable = true,
-    	type = RpaTaskType.PRO
-    };
+	var newTaskObject = new NewTask()
+	{
+		CheckDiversity = true,
+		Diversity = "Test",
+		InputData = inputData,
+		ProcessId = 1,
+		Redoable = true,
+		Type = RpaTaskType.PRO
+	};
     
     ITask task2 = rpaApiObject.TasksRoute().Create(newTaskObject);
 <a name="gettask"></a>    

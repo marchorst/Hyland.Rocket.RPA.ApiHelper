@@ -1,10 +1,19 @@
 namespace Hyland.Rocket.RPA.ApiHelper.Messages
 {
+    using Newtonsoft.Json;
+
     public class LoginBody
     {
-        public string identifier { get; set; }
-        public string password { get; set; }
-        public bool remember { get; set; }
-        public string redirectUrl { get; set; }
+        [JsonProperty("identifier")]
+        public string Identifier { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
+
+        [JsonProperty("remember")]
+        public bool Remember { get; set; }
+
+        [JsonProperty("redirectUrl")]
+        public string RedirectUrl { get; set; }
     }
 }

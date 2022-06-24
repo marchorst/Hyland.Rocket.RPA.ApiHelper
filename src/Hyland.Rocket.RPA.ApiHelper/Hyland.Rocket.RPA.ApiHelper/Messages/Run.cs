@@ -1,7 +1,10 @@
 namespace Hyland.Rocket.RPA.ApiHelper.Messages
 {
+    using Newtonsoft.Json;
+
     public class Run
     {
-        public string outputData { get; set; }
+        [JsonProperty("outputData")]
+        public string OutputData { get; set; }
     }
 }

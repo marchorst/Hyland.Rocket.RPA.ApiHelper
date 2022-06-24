@@ -8,15 +8,12 @@ namespace Hyland.Rocket.RPA.ApiHelper
 
     public static class RpaHelper
     {
-        public static string SerializeDataTable(DataTable table)
-        {
-            return Serialize<DataTable>(table);
-        }
+        public static string SerializeDataTable(DataTable table) => Serialize(table);
 
         public static string Serialize<T>(T table)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            StringWriter textWriter = new StringWriter();
+            var serializer = new XmlSerializer(typeof(T));
+            var textWriter = new StringWriter();
             serializer.Serialize(textWriter, table);
             return textWriter.ToString();
         }
@@ -28,11 +25,13 @@ namespace Hyland.Rocket.RPA.ApiHelper
         /// <returns>JSON String</returns>
         public static string ToJson(object o)
         {
-            JsonSerializer serializer = JsonSerializer.Create();
+            var serializer = JsonSerializer.Create();
             var strBuild = new StringBuilder();
-            StringWriter sw = new StringWriter(strBuild);
-            JsonWriter writer = new JsonTextWriter(sw);
-            writer.Formatting = Formatting.None;
+            var sw = new StringWriter(strBuild);
+            JsonWriter writer = new JsonTextWriter(sw)
+            {
+                Formatting = Formatting.None
+            };
             serializer.Serialize(writer, o);
             return strBuild.ToString();
         }

@@ -1,15 +1,28 @@
 namespace Hyland.Rocket.RPA.ApiHelper.Messages
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Data to create a new task
     /// </summary>
     public class NewTask
     {
-        public int processId { get; set; }
-        public string inputData { get; set; }
-        public RpaTaskType type { get; set; }
-        public string diversity { get; set; }
-        public bool redoable { get; set; }
-        public bool checkDiversity { get; set; }
+        [JsonProperty("processId")]
+        public int ProcessId { get; set; }
+
+        [JsonProperty("inputData")]
+        public string InputData { get; set; }
+
+        [JsonProperty("type")]
+        public RpaTaskType Type { get; set; }
+
+        [JsonProperty("diversity")]
+        public string Diversity { get; set; }
+
+        [JsonProperty("redoable")]
+        public bool Redoable { get; set; }
+
+        [JsonProperty("checkDiversity")]
+        public bool CheckDiversity { get; set; }
     }
 }
