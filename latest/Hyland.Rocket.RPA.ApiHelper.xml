@@ -4,6 +4,11 @@
         <name>Hyland.Rocket.RPA.ApiHelper</name>
     </assembly>
     <members>
+        <member name="T:Hyland.Rocket.RPA.ApiHelper.Messages.CreateRpaTaskBody">
+            <summary>
+            JSON body structure to create a new Task
+            </summary>
+        </member>
         <member name="T:Hyland.Rocket.RPA.ApiHelper.Messages.NewTask">
             <summary>
             Data to create a new task
@@ -14,7 +19,7 @@
             Get a task by TaskID
             </summary>
             <param name="task">Task object</param>
-            <param name="ignoreSSL">Ignore SSL Validation</param>
+            <param name="ignoreSsl">Ignore SSL Validation</param>
             <returns>The task object</returns>
         </member>
         <member name="M:Hyland.Rocket.RPA.ApiHelper.Routes.TasksRoute.Get(System.Int32,System.Boolean)">
@@ -22,7 +27,7 @@
             Get a task by TaskID
             </summary>
             <param name="taskid">The TaskID</param>
-            <param name="ignoreSSL">Ignore SSL Validation</param>
+            <param name="ignoreSsl">Ignore SSL Validation</param>
             <returns>The task object</returns>
         </member>
         <member name="M:Hyland.Rocket.RPA.ApiHelper.Routes.TasksRoute.Create(Hyland.Rocket.RPA.ApiHelper.Messages.NewTask,System.Boolean)">
@@ -30,7 +35,7 @@
             Create a new task
             </summary>
             <param name="taskData">Task Data</param>
-            <param name="ignoreSSL">Ignore SSL Validation</param>
+            <param name="ignoreSsl">Ignore SSL Validation</param>
             <returns>Create task object</returns>
         </member>
         <member name="M:Hyland.Rocket.RPA.ApiHelper.Routes.TasksRoute.Create(System.Int32,System.String,Hyland.Rocket.RPA.ApiHelper.RpaTaskType,System.String,System.Boolean,System.Boolean,System.Boolean)">
@@ -43,7 +48,7 @@
             <param name="diversity">Uniquie Diversity, default is empty</param>
             <param name="redoable">Default is false</param>
             <param name="checkDiversity">Check diversity, a task will only be created if the diversity is unique. Default is false</param>
-            <param name="ignoreSSL">Do not validate any SSL certificate (When using self signed certificate)</param>
+            <param name="ignoreSsl">Do not validate any SSL certificate (When using self signed certificate)</param>
             <returns>The RPA TaskID</returns>
         </member>
         <member name="T:Hyland.Rocket.RPA.ApiHelper.RpaApi">
@@ -76,7 +81,7 @@
             <summary>
             Get the Bearer Access BearerToken
             </summary>
-            <param name="ignoreSSL">Do not validate any SSL certificate (When using self signed certificate)</param>
+            <param name="ignoreSsl">Do not validate any SSL certificate (When using self signed certificate)</param>
             <returns>Bearer Access BearerToken</returns>
         </member>
         <member name="M:Hyland.Rocket.RPA.ApiHelper.RpaApi.CreateTask(System.Int32,System.String,Hyland.Rocket.RPA.ApiHelper.RpaTaskType,System.String,System.Boolean,System.Boolean,System.Boolean)">
@@ -90,7 +95,7 @@
             <param name="diversity">Uniquie Diversity, default is empty</param>
             <param name="redoable">Default is false</param>
             <param name="checkDiversity">Check diversity, a task will only be created if the diversity is unique. Default is false</param>
-            <param name="ignoreSSL">Do not validate any SSL certificate (When using self signed certificate)</param>
+            <param name="ignoreSsl">Do not validate any SSL certificate (When using self signed certificate)</param>
             <returns>The RPA TaskID</returns>
         </member>
         <member name="M:Hyland.Rocket.RPA.ApiHelper.RpaHelper.ToJson(System.Object)">
