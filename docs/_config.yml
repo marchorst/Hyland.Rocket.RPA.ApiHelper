@@ -20,12 +20,11 @@
 
 title: Hyland.Rocket.RPA.ApiHelper
 email: marc.horst@hyland.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Connect and use the Hyland RPA API easily
+description: Connect and use the Hyland RPA API easily
 github_username:  marchorst
 domain: marchorst.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
 url: https://marchorst.github.io  # the base hostname and protocol for your site, e.g. http://example.com
-baseurl: /Hyland.Rocket.RPA.ApiHelper/ # place folder name if the site is served in a subfolder
+baseurl: /Hyland.Rocket.RPA.ApiHelper/
 # Build settings
 theme: jekyll-theme-cayman
 show_downloads: true
