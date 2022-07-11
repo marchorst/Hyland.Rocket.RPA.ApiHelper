@@ -7,7 +7,7 @@ This is a (not so) simple example of how to trigger a new task from a UnityScrip
 
 ## The OnBaseRocketUnityScriptTrigger
 Find the file here:
-https://raw.githubusercontent.com/marchorst/Hyland.Rocket.RPA.ApiHelper/main/example/OnBaseUnityScriptTrigger.cs
+https://raw.githubusercontent.com/marchorst/Hyland.Rocket.RPA.ApiHelper/main/example/OnBaseRocketUnityScriptTrigger.cs
 
 ## How to use it
 ### Quickstart
