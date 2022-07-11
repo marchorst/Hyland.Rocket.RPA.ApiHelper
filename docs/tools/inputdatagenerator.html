@@ -1,0 +1,136 @@
+---
+layout: default
+title: Examples and tools
+permalink: /tools/inputdatagenerator
+---
+<style>
+.add {
+  cursor: pointer;
+}
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    vertical-align: top;    caption-side: bottom;
+    border-collapse: collapse;
+    display: table !important;
+}
+
+input.form-control {
+    display: block;
+    width: 100%;
+    height: 2em;
+    line-height: 2em;
+    outline: none;
+    border: 0;
+}
+.addc {
+  text-align: center;
+}
+tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+th {
+  text-align: left;
+}
+</style>
+<h1>Rocket InputData Builder</h1>
+Generate one dimensional .net DataTable structure<br />
+Currently only datatype string is supported!
+<hr />
+ <form id="form">
+            <div class="row">
+              <table class="table">
+                <head>
+                  <tr>
+                    <th>DataTable Columnname</th>
+                    <th>Value (first row)</th>
+                    <th></th>
+                  </tr>
+                </head>
+                <tbody>
+                <tr class="datacolumndefinition">
+                  <td class="input-group mb-3">
+                    <input type="text" class="form-control columnname" placeholder="Columnname" value="" required
+                      name="columnname[]" onkeyup="generate(this)" />
+                    </td>
+                    <td>
+                    <input type="text" class="form-control rowcolumnvalue" placeholder="Value in first row" value=""
+                      required name="rowcolumnvalue[]" onkeyup="generate(this)" />
+                    </td>
+                    <td class="addc">
+                    <span class="add" onclick="add(this)">+</span>
+                    </td>
+                </tr>
+              </tbody>
+              </table>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div class="col-12">
+                <h3>Serialized result</h3>
+                <textarea style="min-height: 150px; width: 100%" type="text" class="form-control" id="result"
+                  placeholder="result"></textarea>
+              </div>
+            </div>
+          </form>
+  <script type="text/xml" id="xml">
+<DataTable>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="inputdata" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="inputdata">
+            <xs:complexType>
+              <xs:sequence>                
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+    <DocumentElement>
+      <inputdata diffgr:id="inputdata1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+      </inputdata>
+    </DocumentElement>
+  </diffgr:diffgram>
+</DataTable>
+  </script>
+  <script>
+    function add(e) {
+      console.log(e);
+      var h = e.parentElement.parentElement.outerHTML;
+      e.parentElement.parentElement.insertAdjacentHTML("afterend", h);
+    }
+
+    function generate(e) {
+      var t = document.getElementById("xml");
+      var parser = new DOMParser();
+      var xmlDoc = parser.parseFromString(t.textContent, "text/xml");
+
+      var valueList = xmlDoc.getElementsByTagName("inputdata");
+      var head = xmlDoc.getElementsByTagName("xs:sequence");
+
+      var columns = document.getElementsByClassName("datacolumndefinition");
+      for (var i = 0; i < columns.length; i++) {
+        var cn = columns[i].getElementsByClassName("columnname")[0].value;
+        var cv = columns[i].getElementsByClassName("rowcolumnvalue")[0].value;
+
+        var newHeadElement = xmlDoc.createElement("xs:element");
+        newHeadElement.setAttribute("name", cn);
+        newHeadElement.setAttribute("type", "xs:string");
+        newHeadElement.setAttribute("minOccurs", "0");
+        window.temp = (newHeadElement);
+        head[0].appendChild(newHeadElement);
+
+        var newElement = xmlDoc.createElement(cn);
+        newElement.textContent = cv;
+        valueList[0].appendChild(newElement);
+      }
+
+      document.getElementById("result").value = new XMLSerializer().serializeToString(xmlDoc.documentElement);
+    }
+  </script>
