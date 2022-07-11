@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Marc Horst">
+  <title>InputData Builder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+  <div class="container">
+    <main>
+      <div class="py-5 text-center">
+        <h2>Rocket InputData Builder</h2>
+        <p class="lead">Generate one dimensional .net DataTable structure</p>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="mb-3">Data</h4>
+          <form id="form">
+            <div class="row">
+              <div class="col-sm-12 datacolumndefinition">
+                <label for="firstName" class="form-label">DataTable Columnname, Value (first row)</label>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control columnname" placeholder="Columnname" value="" required
+                    name="columnname[]" onkeyup="generate(this)">
+
+                  <input type="text" class="form-control rowcolumnvalue" placeholder="Value in first row" value=""
+                    required name="rowcolumnvalue[]" onkeyup="generate(this)">
+                  <span class="btn btn-success add" onclick="add(this)">+</span>
+                  <span class="btn btn-danger remove">-</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-12">
+                <label for="username" class="form-label">Serialized result</label>
+                <textarea style="min-height: 150px" type="text" class="form-control" id="result"
+                  placeholder="Username"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script type="text/xml" id="xml">
+<DataTable>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="inputdata" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="inputdata">
+            <xs:complexType>
+              <xs:sequence>                
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+    <DocumentElement>
+      <inputdata diffgr:id="inputdata1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+      </inputdata>
+    </DocumentElement>
+  </diffgr:diffgram>
+</DataTable>
+  </script>
+  <script>
+    function add(e) {
+      console.log(e);
+      var h = e.parentElement.parentElement.outerHTML;
+      e.parentElement.parentElement.insertAdjacentHTML("afterend", h);
+    }
+
+    function generate(e) {
+      var t = document.getElementById("xml");
+      var parser = new DOMParser();
+      var xmlDoc = parser.parseFromString(t.textContent, "text/xml");
+
+      var valueList = xmlDoc.getElementsByTagName("inputdata");
+      var head = xmlDoc.getElementsByTagName("xs:sequence");
+
+      var columns = document.getElementsByClassName("datacolumndefinition");
+      for (var i = 0; i < columns.length; i++) {
+        var cn = columns[i].getElementsByClassName("columnname")[0].value;
+        var cv = columns[i].getElementsByClassName("rowcolumnvalue")[0].value;
+
+        var newHeadElement = xmlDoc.createElement("xs:element");
+        newHeadElement.setAttribute("name", cn);
+        newHeadElement.setAttribute("type", "xs:string");
+        newHeadElement.setAttribute("minOccurs", "0");
+        window.temp = (newHeadElement);
+        head[0].appendChild(newHeadElement);
+
+        var newElement = xmlDoc.createElement(cn);
+        newElement.textContent = cv;
+        valueList[0].appendChild(newElement);
+      }
+
+      document.getElementById("result").value = new XMLSerializer().serializeToString(xmlDoc.documentElement);
+    }
+  </script>
+</body>
+
+</html>
