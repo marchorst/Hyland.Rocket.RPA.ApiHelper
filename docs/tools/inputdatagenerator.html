@@ -41,6 +41,12 @@ Currently only datatype string is supported!
 <hr />
  <form id="form">
             <div class="row">
+			<h2>Bulk import</h2>
+			<p>You can simply copy-past from Excel with first column = "DataTable Columnname" and second column the value. (Copy past should result in a tab seperated table string)</p>
+			<textarea style="min-height: 150px; width: 100%"  id="bulk"></textarea>
+			<span onclick="generatebulk(this)" class="add btn" style="color: #000; border-color: #000; display: block; text-align: center;">build from bulk</span>
+			<hr />
+			<h2>Fields defintion</h2>
               <table class="table">
                 <head>
                   <tr>
@@ -65,6 +71,7 @@ Currently only datatype string is supported!
                 </tr>
               </tbody>
               </table>
+			  <span onclick="generate(this)" class="add btn" style="color: #000; border-color: #000; display: block; text-align: center;">build</span>
               </div>
             </div>
             <div class="mt-4">
@@ -107,6 +114,12 @@ Currently only datatype string is supported!
     }
 
     function generate(e) {
+		_generate(e, false);
+	}
+    function generatebulk(e) {
+		_generate(e, true);
+	}
+    function _generate(e, bulk) {
       var t = document.getElementById("xml");
       var parser = new DOMParser();
       var xmlDoc = parser.parseFromString(t.textContent, "text/xml");
@@ -115,10 +128,26 @@ Currently only datatype string is supported!
       var head = xmlDoc.getElementsByTagName("xs:sequence");
 
       var columns = document.getElementsByClassName("datacolumndefinition");
-      for (var i = 0; i < columns.length; i++) {
-        var cn = columns[i].getElementsByClassName("columnname")[0].value;
-        var cv = columns[i].getElementsByClassName("rowcolumnvalue")[0].value;
-
+	  var result = [];
+	  if(bulk == true) {
+		var t = document.getElementById("bulk").value
+		console.log(t);
+		var rows = t.split("\n");
+		for (var i = 0; i < rows.length; i++) {
+			var temp = rows[i].split("\t")
+			if(rows[i] != "")
+				result.push({cn: temp[0], cv: temp[1]});
+		}
+	  }
+	  else {
+		  for (var i = 0; i < columns.length; i++) {
+			result.push({cn: columns[i].getElementsByClassName("columnname")[0].value, cv: columns[i].getElementsByClassName("rowcolumnvalue")[0].value});
+		  }
+	  }
+	  
+	  for(var i = 0; i < result.length; i++) {
+		var cn = result[i].cn;
+        var cv = result[i].cv;
         var newHeadElement = xmlDoc.createElement("xs:element");
         newHeadElement.setAttribute("name", cn);
         newHeadElement.setAttribute("type", "xs:string");
