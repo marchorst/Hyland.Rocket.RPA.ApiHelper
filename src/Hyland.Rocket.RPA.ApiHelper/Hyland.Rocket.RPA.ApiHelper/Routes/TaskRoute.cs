@@ -125,5 +125,47 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
         }
 
         #endregion
+
+        #region Redo
+        /// <summary>
+        /// Redo a task
+        /// </summary>
+        /// <param name="task">Task object</param>
+        /// <param name="ignoreSsl">Ignore SSL Validation</param>
+        /// <returns></returns>
+        public ITask Redo(ITask task, bool ignoreSsl = true) => Redo(task.TaskId, ignoreSsl);
+
+        /// <summary>
+        /// Redo a task
+        /// </summary>
+        /// <param name="taskId">The TaskID</param>
+        /// <param name="ignoreSsl">Ignore SSL Validation</param>
+        /// <returns></returns>
+        public ITask Redo(int taskId, bool ignoreSsl = true)
+        {
+            var client = new RestClient(this.DomainWithProtocol + "/heart/api/tasks/" + taskId.ToString() + "/redo");
+            if (ignoreSsl)
+            {
+                client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            }
+
+            var request = new RestRequest(Method.PUT);
+            request.AddHeader("Authorization", this.BearerToken);
+
+            var response = client.Execute(request);
+            ITask results = null;
+            try
+            {
+                var deserializer = JsonSerializer.Create();
+                results = deserializer.Deserialize<Task>(new JsonTextReader(new StringReader(response.Content)));
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Could not redo task: " + e.InnerException.Message);
+            }
+
+            return results;
+        }
+        #endregion
     }
 }
