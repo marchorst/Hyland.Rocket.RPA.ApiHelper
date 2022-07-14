@@ -35,7 +35,7 @@
                 {FieldDataType.FloatingPoint, typeof(Double)},
                 {FieldDataType.Date, typeof(DateTime)},
                 {FieldDataType.AlphaNumeric, typeof(string)},
-                {FieldDataType.Currency, typeof(Double)},
+                {FieldDataType.Currency, typeof(string)},
                 {FieldDataType.Decimal, typeof(Double)},
                 {FieldDataType.Boolean, typeof(bool)},
                 {FieldDataType.DateTime, typeof(DateTime)}
@@ -170,7 +170,7 @@
                             break;
                         case "System.String":
                             if (!field.IsEmpty)
-                                d.SetField<string>(field.FieldDefinition.Name, field.AlphaNumericValue);
+                                d.SetField<string>(field.FieldDefinition.Name, field.Value.ToString());
                             break;
                         case "System.DateTime":
                             if (!field.IsEmpty)
