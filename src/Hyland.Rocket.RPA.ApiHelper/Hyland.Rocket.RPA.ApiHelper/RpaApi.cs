@@ -60,6 +60,7 @@ namespace Hyland.Rocket.RPA.ApiHelper
         public RpaApi(string domainWithProtocol, string clientId, string username, string password,
             bool getAccessToken = true)
         {
+            domainWithProtocol = domainWithProtocol.EndsWith("/") ? domainWithProtocol.Remove(domainWithProtocol.Length - 1, 1) : domainWithProtocol;
             this.DomainWithProtocol = domainWithProtocol;
             this.ClientId = clientId;
             this.Username = username;
