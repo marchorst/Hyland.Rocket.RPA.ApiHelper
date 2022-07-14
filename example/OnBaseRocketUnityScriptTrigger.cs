@@ -12,12 +12,15 @@
     /// </summary>
     public class OnBaseRocketUnityScriptTrigger : Hyland.Unity.IClientWorkflowScript
     {
-		string defaultProcessIdPropertyBagName = "pProcessorID";
-        string defaultProcessId = "1";
-        string defaultApiUrl = "";
-        string defaultApiClientId = "";
-        string defaultApiUsername = "";
-        string defaultApiPassword = "";
+        private string defaultProcessIdPropertyBagName = "pProcessorID";
+        private string defaultProcessId = "1";
+        private string defaultApiUrl = "";
+        private string defaultApiClientId = "";
+        private string defaultApiUsername = "";
+        private string defaultApiPassword = "";
+        private bool isTaskRedoable = true;
+        private RpaTaskType type = RpaTaskType.PRO;
+        private string diversity = "";
 
         INPUTDATA_MODE INPUTMODE = INPUTDATA_MODE.UNITYFORM_FIELDS; //INPUTDATA_MODE.DOCUMENT_ID
 
@@ -116,7 +119,7 @@
 
                 var inputData = RpaHelper.SerializeDataTable(dt);
 
-                var task = rpaApi.Tasks.Create(Convert.ToInt32(processId), inputData);
+                var task = rpaApi.Tasks.Create(Convert.ToInt32(processId), inputData, type, diversity, isTaskRedoable);
                 app.Diagnostics.Write("Created a new RPA Task with ID: " + task);
 
 
