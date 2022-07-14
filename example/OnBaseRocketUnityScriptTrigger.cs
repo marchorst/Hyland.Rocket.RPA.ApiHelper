@@ -12,7 +12,7 @@
     /// </summary>
     public class OnBaseRocketUnityScriptTrigger : Hyland.Unity.IClientWorkflowScript
     {
-        string defaultProcessIdPropertyBagName = "pProcessorID";
+		string defaultProcessIdPropertyBagName = "pProcessorID";
         string defaultProcessId = "1";
         string defaultApiUrl = "";
         string defaultApiClientId = "";
@@ -155,7 +155,9 @@
             {
                 try
                 {
+                    app.Diagnostics.Write("Start Field with name: " + field.FieldDefinition.Name);
                     Type currentType = mapping[field.FieldDefinition.DataType];
+                    app.Diagnostics.Write("Field DataType: " + field.FieldDefinition.DataType + " / " + currentType.ToString());
                     switch (currentType.ToString())
                     {
                         case "System.Int32":
@@ -183,9 +185,9 @@
                 catch (Exception e)
                 {
                     app.Diagnostics.Write("Could not convert value for " + field.FieldDefinition.Name);
-                    app.Diagnostics.Write(field.Value.ToString());
+                    app.Diagnostics.Write("Value: " + field.Value.ToString());
                     app.Diagnostics.Write(e);
-                    throw new Exception("Could not convert value", e);
+                    throw new Exception("Could not convert value for " + field?.FieldDefinition?.Name, e);
                 }
             }
 
