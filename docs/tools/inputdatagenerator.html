@@ -146,7 +146,8 @@ Currently only datatype string is supported!
 	  }
 	  
 	  for(var i = 0; i < result.length; i++) {
-		var cn = result[i].cn;
+	  	  var cn = result[i].cn;
+        cn = cn.replace(" ", "_x0020_");
         var cv = result[i].cv;
         var newHeadElement = xmlDoc.createElement("xs:element");
         newHeadElement.setAttribute("name", cn);
