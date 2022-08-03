@@ -194,6 +194,9 @@
                 }
             }
 
+            dt.Columns.Add(new DataColumn("DocumentId", typeof(int)));
+            d.SetField<int>("DocumentId", System.Convert.ToInt32(doc?.ID));
+
             dt.Rows.Add(d);
             return dt;
         }
