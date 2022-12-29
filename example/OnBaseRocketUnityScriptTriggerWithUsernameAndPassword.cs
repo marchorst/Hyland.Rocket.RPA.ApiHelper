@@ -10,13 +10,18 @@
     /// <summary>
     /// OnBaseUnityScriptTrigger
     /// </summary>
-    public class OnBaseRocketUnityScriptTrigger : Hyland.Unity.IClientWorkflowScript
+    public class OnBaseRocketUnityScriptTriggerWithUsernameAndPassword : Hyland.Unity.IClientWorkflowScript
     {
         private string defaultProcessIdPropertyBagName = "pProcessorID";
         private string defaultProcessId = "1";
-        private string defaultHeartApiUrl = "";
-        private string defaultIdentityApiUrl = "";
-        private string defaultAccessToken = "";
+        private string defaultApiUrl = "";
+        // Use this if your API Urls are different hostnames or are different to "/identity" and "/heart"
+        // Better use the new Access Token Variant
+        //Variant B private string defaultHeartApiUrl = "";
+        //Variant B private string defaultIdentityApiUrl = "";
+        private string defaultApiClientId = "";
+        private string defaultApiUsername = "";
+        private string defaultApiPassword = "";
         private bool isTaskRedoable = true;
         private RpaTaskType type = RpaTaskType.PRO;
         private string diversity = "";
@@ -59,14 +64,26 @@
                 _app = app;
 
                 // Get Configuration
-                string heartApiUrl;
+                /* TODO */
+                string apiUrl;
+                GetConfigValue("Hyland.RPA.ApiUrl", defaultApiUrl, out apiUrl);
+                /* TODO */
+                string apiClientId;
+                GetConfigValue("Hyland.RPA.ApiClienId", defaultApiClientId, out apiClientId);
+
+              /* Variant B  string heartApiUrl;
                 GetConfigValue("Hyland.RPA.HeartApiClienId", defaultHeartApiUrl, out heartApiUrl);
-
+                
                 string heartApiUrl;
-                GetConfigValue("Hyland.RPA.IdentityApiClienId", defaultIdentityApiClientId, out heartApiUrl);
+                GetConfigValue("Hyland.RPA.IdentityApiClienId", defaultIdentityApiClientId, out heartApiUrl); */
 
-                string apiAccessToken;
-                GetConfigValue("Hyland.RPA.AccessToken", defaultAccessToken, out apiAccessToken);
+                /* TODO */
+                string apiUsername;
+                GetConfigValue("Hyland.RPA.Username", defaultApiUsername, out apiUsername);
+                /* TODO */
+                string apiPassword;
+                GetConfigValue("Hyland.RPA.Password", defaultApiPassword, out apiPassword);
+                /* TODO */
 
                 // Get ProcessorID
                 // Depending on your Property it can be a string or int
@@ -87,7 +104,7 @@
                 RpaApi rpaApi = null;
                 try
                 {
-                    rpaApi = new RpaApi(heartApiUrl, identityApiUrl, apiAccessToken);
+                    rpaApi = new RpaApi(apiUrl, apiClientId, apiUsername, apiPassword);
                 }
                 catch (Exception e)
                 {

@@ -18,7 +18,8 @@ namespace Hyland.Rocket.RPA.ApiHelper
     {
         private TasksRoute tasks;
         public string BearerToken { get; set; }
-        public string DomainWithProtocol { get; private set; }
+        public string IdentityUrlWithProtocol { get; private set; }
+        public string HeartUrlWithProtocol { get; private set; }
         public string ClientId { get; private set; }
         public string Username { get; private set; }
         public string Password { get; private set; }
@@ -35,7 +36,7 @@ namespace Hyland.Rocket.RPA.ApiHelper
                     this.tasks = new TasksRoute()
                     {
                         BearerToken = this.BearerToken,
-                        DomainWithProtocol = this.DomainWithProtocol
+                        DomainWithProtocol = this.HeartUrlWithProtocol
                     };
                 }
 
@@ -57,11 +58,16 @@ namespace Hyland.Rocket.RPA.ApiHelper
         /// <param name="username">A valid username</param>
         /// <param name="password">A valid Password</param>
         /// <param name="getAccessToken">Run the AccessToken method directly</param>
+        [Obsolete("Use Access Token!")]
         public RpaApi(string domainWithProtocol, string clientId, string username, string password,
             bool getAccessToken = true)
         {
-            domainWithProtocol = domainWithProtocol.EndsWith("/") ? domainWithProtocol.Remove(domainWithProtocol.Length - 1, 1) : domainWithProtocol;
-            this.DomainWithProtocol = domainWithProtocol;
+            this.HeartUrlWithProtocol = domainWithProtocol.EndsWith("/") ? domainWithProtocol.Remove(domainWithProtocol.Length - 1, 1) : domainWithProtocol;
+            this.HeartUrlWithProtocol += "/heart";
+
+            this.IdentityUrlWithProtocol = domainWithProtocol.EndsWith("/") ? domainWithProtocol.Remove(domainWithProtocol.Length - 1, 1) : domainWithProtocol;
+            this.IdentityUrlWithProtocol += "/identity";
+
             this.ClientId = clientId;
             this.Username = username;
             this.Password = password;
@@ -70,6 +76,43 @@ namespace Hyland.Rocket.RPA.ApiHelper
             {
                 this.GetAccessToken();
             }
+        }
+
+        /// <summary>
+        /// Initilize the Class
+        /// </summary>
+        /// <param name="heartUrlWithProtocol">Example: https://test.local/heart - NO ENDING /</param>
+        /// <param name="identityUrlWithProtocol">Example: https://test.local/identity - NO ENDING /</param>
+        /// <param name="clientId">The ClientID</param>
+        /// <param name="username">A valid username</param>
+        /// <param name="password">A valid Password</param>
+        /// <param name="getAccessToken">Run the AccessToken method directly</param>
+        [Obsolete("Use Access Token!")]
+        public RpaApi(string heartUrlWithProtocol, string identityUrlWithProtocol, string clientId, string username, string password,
+            bool getAccessToken = true)
+        {
+            this.HeartUrlWithProtocol = heartUrlWithProtocol.EndsWith("/") ? heartUrlWithProtocol.Remove(heartUrlWithProtocol.Length - 1, 1) : heartUrlWithProtocol;
+            this.IdentityUrlWithProtocol = identityUrlWithProtocol.EndsWith("/") ? identityUrlWithProtocol.Remove(identityUrlWithProtocol.Length - 1, 1) : identityUrlWithProtocol;
+            this.ClientId = clientId;
+            this.Username = username;
+            this.Password = password;
+
+            if (getAccessToken)
+            {
+                this.GetAccessToken();
+            }
+        }
+
+        /// <summary>
+        /// Initilize the Class
+        /// </summary>
+        /// <param name="domainWithProtocol">Example: https://test.local - NO ENDING /</param>
+        /// <param name="accessToken">Bearer Access Token</param>
+        public RpaApi(string heartUrlWithProtocol, string identityUrlWithProtocol, string accessToken)
+        {
+            this.HeartUrlWithProtocol = heartUrlWithProtocol.EndsWith("/") ? heartUrlWithProtocol.Remove(heartUrlWithProtocol.Length - 1, 1) : heartUrlWithProtocol;
+            this.IdentityUrlWithProtocol = identityUrlWithProtocol.EndsWith("/") ? identityUrlWithProtocol.Remove(identityUrlWithProtocol.Length - 1, 1) : identityUrlWithProtocol;
+            this.BearerToken = accessToken.Trim().StartsWith("Bearer") ? accessToken.Trim() : "Bearer " + accessToken.Trim();
         }
 
         /// <summary>
@@ -84,7 +127,7 @@ namespace Hyland.Rocket.RPA.ApiHelper
                 try
                 {
                     var cookieContainer = new CookieContainer();
-                    var client = new RestClient(this.DomainWithProtocol + "/identity/api/Authorization/login");
+                    var client = new RestClient(this.IdentityUrlWithProtocol + "/api/Authorization/login");
                     if (ignoreSsl)
                     {
                         client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
@@ -99,7 +142,7 @@ namespace Hyland.Rocket.RPA.ApiHelper
                         Identifier = this.Username,
                         Password = this.Password,
                         Remember = true,
-                        RedirectUrl = this.DomainWithProtocol + "/identity/swagger/oauth2-redirect.html"
+                        RedirectUrl = this.IdentityUrlWithProtocol + "/swagger/oauth2-redirect.html"
                     };
 
                     request.AddParameter("application/json", RpaHelper.ToJson(newBody), ParameterType.RequestBody);
@@ -107,9 +150,9 @@ namespace Hyland.Rocket.RPA.ApiHelper
                     var id = response.StatusCode.ToString();
 
                     client = new RestClient(
-                        $"{this.DomainWithProtocol}/identity/connect/authorize?response_type=code&state=&client_id=" +
+                        $"{this.IdentityUrlWithProtocol}/connect/authorize?response_type=code&state=&client_id=" +
                         this.ClientId +
-                        $"&scope={HttpUtility.UrlEncode("heart:group heart:process heart:application heart:instance heart:instanceSettings heart:agent heart:error heart:task heart:credentials heart:dictionary heart:activity")}&redirect_uri={HttpUtility.UrlEncode(this.DomainWithProtocol + "/heart/swagger/oauth2-redirect.html")}");
+                        $"&scope={HttpUtility.UrlEncode("heart:group heart:process heart:application heart:instance heart:instanceSettings heart:agent heart:error heart:task heart:credentials heart:dictionary heart:activity")}&redirect_uri={HttpUtility.UrlEncode(this.HeartUrlWithProtocol + "/heart/swagger/oauth2-redirect.html")}");
                     if (ignoreSsl)
                     {
                         client.RemoteCertificateValidationCallback =
@@ -125,7 +168,7 @@ namespace Hyland.Rocket.RPA.ApiHelper
                     response = client.Execute(request);
                     var code = response.ResponseUri.Query.Split('&').ToList().First(x => x.Contains("code="));
                     code = code.Split('=')[1];
-                    client = new RestClient(this.DomainWithProtocol + "/identity/connect/token");
+                    client = new RestClient(this.IdentityUrlWithProtocol + "/connect/token");
                     if (ignoreSsl)
                     {
                         client.RemoteCertificateValidationCallback =
@@ -142,7 +185,7 @@ namespace Hyland.Rocket.RPA.ApiHelper
                     request.AddParameter("grant_type", "authorization_code");
                     request.AddParameter("code", code);
                     request.AddParameter("redirect_uri",
-                        this.DomainWithProtocol + "/heart/swagger/oauth2-redirect.html");
+                        this.HeartUrlWithProtocol + "/heart/swagger/oauth2-redirect.html");
                     request.AddParameter("client_id", this.ClientId);
                     response = client.Execute(request);
                     var serializer = JsonSerializer.Create();
@@ -176,7 +219,7 @@ namespace Hyland.Rocket.RPA.ApiHelper
             string diversity = "", bool redoable = false, bool checkDiversity = false, bool ignoreSsl = true)
         {
             // Create RPA TASK
-            var client = new RestClient(this.DomainWithProtocol + "/heart/api/tasks");
+            var client = new RestClient(this.HeartUrlWithProtocol + "/heart/api/tasks");
             if (ignoreSsl)
             {
                 client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;

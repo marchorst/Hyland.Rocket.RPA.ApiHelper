@@ -33,7 +33,7 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
         public ITask Get(int taskid, bool ignoreSsl = true)
         {
             // Create RPA TASK
-            var client = new RestClient(this.DomainWithProtocol + "/heart/api/tasks/" + taskid);
+            var client = new RestClient(this.DomainWithProtocol + "/api/tasks/" + taskid);
             if (ignoreSsl)
             {
                 client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
@@ -48,6 +48,41 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
             {
                 var deserializer = JsonSerializer.Create();
                 result = deserializer.Deserialize<Task>(new JsonTextReader(new StringReader(response.Content)));
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Could not find task: " + e.InnerException.Message);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get a task by TaskID
+        /// </summary>
+        /// <param name="taskid">The TaskID</param>
+        /// <param name="ignoreSsl">Ignore SSL Validation</param>
+        /// <returns>The task object</returns>
+        public List<Task> All(int page = 0, int pageSize = 50, string filter = "", bool ignoreSsl = true)
+        {
+            // Create RPA TASK
+            var client = new RestClient(this.DomainWithProtocol + "/api/tasks");
+            if (ignoreSsl)
+            {
+                client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            }
+
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", this.BearerToken);
+            request.AddParameter("Filters", filter);
+            request.AddParameter("Page", filter);
+            request.AddParameter("PageSize", filter);
+            var response = client.Execute(request);
+            List<Task> result = null;
+            try
+            {
+                var deserializer = JsonSerializer.Create();
+                result = deserializer.Deserialize<List<Task>>(new JsonTextReader(new StringReader(response.Content)));
             }
             catch (Exception e)
             {
@@ -85,7 +120,7 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
         public ITask Create(int processId, string inputData, RpaTaskType type = RpaTaskType.PRO, string diversity = "",
             bool redoable = false, bool checkDiversity = false, bool ignoreSsl = true)
         {
-            var client = new RestClient(this.DomainWithProtocol + "/heart/api/tasks");
+            var client = new RestClient(this.DomainWithProtocol + "/api/tasks");
             if (ignoreSsl)
             {
                 client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
@@ -118,7 +153,11 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
             }
             catch (Exception e)
             {
-                throw new Exception("Could not create task: " + e.InnerException.Message);
+                if (response.Content.Contains("TaskWithDiversityAlreadyExists"))
+                {
+                    throw new TaskWithDiversityAlreadyExistsException("Could not create task!\nMessage:\n" + response.Content + "\nException:\n" + e.Message);
+                }
+                throw new Exception("Could not create task!\nMessage:\n" + response.Content + "\nException:\n" + e.Message);
             }
 
             return results.First();
@@ -143,7 +182,7 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
         /// <returns></returns>
         public ITask Redo(int taskId, bool ignoreSsl = true)
         {
-            var client = new RestClient(this.DomainWithProtocol + "/heart/api/tasks/" + taskId.ToString() + "/redo");
+            var client = new RestClient(this.DomainWithProtocol + "/api/tasks/" + taskId.ToString() + "/redo");
             if (ignoreSsl)
             {
                 client.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;

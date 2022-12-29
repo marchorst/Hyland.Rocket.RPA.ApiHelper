@@ -20,6 +20,17 @@ namespace Hyland.Rocket.RPA.ApiHelper.Messages
         [JsonProperty("outputdata")]
         public string Outputdata { get; set; }
 
+
+        [JsonProperty("closedAt")]
+        public string closedAt { get; set; }
+
+        [JsonProperty("createdAt")]
+        public string createdAt { get; set; }
+
+
+        [JsonProperty("process.name")]
+        public string process { get; set; }
+
         [JsonProperty("runs")] public List<Run> Runs { get; set; }
     }
 }

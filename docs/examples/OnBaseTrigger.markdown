@@ -10,12 +10,15 @@ This is a (not so) simple example of how to trigger a new task from a UnityScrip
 **Consider this script as a work in progress!**
 
 ## The OnBaseRocketUnityScriptTrigger
-Find the file here:
+Find the file here (AccessToken):
 [https://raw.githubusercontent.com/marchorst/Hyland.Rocket.RPA.ApiHelper/main/example/OnBaseRocketUnityScriptTrigger.cs](https://raw.githubusercontent.com/marchorst/Hyland.Rocket.RPA.ApiHelper/main/example/OnBaseRocketUnityScriptTrigger.cs)
+
+Or with username and password (Deprecated):
+[https://raw.githubusercontent.com/marchorst/Hyland.Rocket.RPA.ApiHelper/main/example/OnBaseRocketUnityScriptTriggerWithUsernameAndPassword.cs](https://raw.githubusercontent.com/marchorst/Hyland.Rocket.RPA.ApiHelper/main/example/OnBaseRocketUnityScriptTriggerWithUsernameAndPassword.cs)
 
 ## How to use it
 ### Quickstart
-Create a new IClientWorkflowScript (or any other you want to use, just make sure you adapt the interface) and name it 'OnBaseRocketUnityScriptTrigger' - after that you can just copy the content into the OnBase Studio Editor, add some references and that's it.
+Create a new IClientWorkflowScript (or any other you want to use, just make sure you adapt the interface) and name it 'OnBaseRocketUnityScriptTrigger' / 'OnBaseRocketUnityScriptTriggerWithUsernameAndPassword' - after that you can just copy the content into the OnBase Studio Editor, add some references and that's it.
 
 ### A bit more details
 ![1 Step](https://raw.githubusercontent.com/marchorst/Hyland.Rocket.RPA.ApiHelper/main/example/1.JPG)

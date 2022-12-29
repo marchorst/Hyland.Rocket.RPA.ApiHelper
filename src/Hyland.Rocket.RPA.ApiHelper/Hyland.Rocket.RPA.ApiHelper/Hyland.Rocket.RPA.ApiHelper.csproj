@@ -57,6 +57,7 @@
     <Compile Include="Messages\NewTask.cs" />
     <Compile Include="Routes\IRoute.cs" />
     <Compile Include="Routes\TaskRoute.cs" />
+    <Compile Include="Routes\TaskWithDiversityAlreadyExistsException.cs" />
     <Compile Include="RpaApi.cs" />
     <Compile Include="Messages\Token.cs" />
     <Compile Include="Messages\Run.cs" />

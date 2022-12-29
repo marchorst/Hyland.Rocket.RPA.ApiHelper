@@ -45,9 +45,16 @@ Be sure to follow the documentation for direct API Access here:\
 (Administration->Direct API requests with Postman)
 <a name="connect"></a>
 ### Connect throw the API
+#### Access token
 ```
 // Initialize the API Connection
-var rpaApiObject = new RpaApi("https://your.domain.without.ending.slash", "Heart's Client ID", "USERNAME", "PASSWORD");
+var rpaApiObject = new RpaApi("https://your.domain.without.ending.slash/heart", "https://your.domain.without.ending.slash/identity", "AccessToken");
+```
+Hint: You can generate an "Access token" in your "Hyland RPA Manager Account Settings".
+#### Username and password (Deprecated)
+```
+// Initialize the API Connection
+var rpaApiObject = new RpaApi("https://your.domain.without.ending.slash/heart", "https://your.domain.without.ending.slash/identity", "Heart's Client ID", "USERNAME", "PASSWORD");
 ```
 Hint: Heart's Client ID Note: The ID can be found in Heart's appsettings.json file at HeartServer:Swagger:ClientId
 <a name="createtask"></a>

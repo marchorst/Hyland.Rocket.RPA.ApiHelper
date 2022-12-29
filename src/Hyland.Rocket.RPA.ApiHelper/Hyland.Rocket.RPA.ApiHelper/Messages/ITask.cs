@@ -9,6 +9,9 @@ namespace Hyland.Rocket.RPA.ApiHelper.Messages
         string Status { get; set; }
         string Diversity { get; set; }
         string Outputdata { get; set; }
+        string closedAt { get; set; }
+        string createdAt { get; set; }
+        string process { get; set; }
         List<Run> Runs { get; set; }
     }
 }
