@@ -9,7 +9,7 @@ With this dll you are able to connect to the Hyland RPA API.
     - [Dependencies](#dependencies)
         - [External references](#externalrefs)
         - [Preconditions](#preconditions)
-    - [Connect throw the API](#connect)
+    - [Connect through the API](#connect)
     - [Create a new Task](#createtask)
         - [Example create a new Task with a DataTable](#createtaskdatatable)
     - [Get Task](#gettask)
@@ -44,7 +44,7 @@ Be sure to follow the documentation for direct API Access here:\
 <a href="https://docs.hyland.com/RPA/en_US/22/1/RPAP/RPA_Platform.htm" target="_blank">https://docs.hyland.com/RPA/en_US/22/1/RPAP/RPA_Platform.htm</a> \
 (Administration->Direct API requests with Postman)
 <a name="connect"></a>
-### Connect throw the API
+### Connect through the API
 #### Access token
 ```
 // Initialize the API Connection

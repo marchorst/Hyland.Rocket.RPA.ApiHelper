@@ -60,10 +60,10 @@
 
                 // Get Configuration
                 string heartApiUrl;
-                GetConfigValue("Hyland.RPA.HeartApiClienId", defaultHeartApiUrl, out heartApiUrl);
+                GetConfigValue("Hyland.RPA.HeartApiUrl", defaultHeartApiUrl, out heartApiUrl);
 
                 string heartApiUrl;
-                GetConfigValue("Hyland.RPA.IdentityApiClienId", defaultIdentityApiClientId, out heartApiUrl);
+                GetConfigValue("Hyland.RPA.IdentityApiUrl", defaultIdentityApiUrl, out heartApiUrl);
 
                 string apiAccessToken;
                 GetConfigValue("Hyland.RPA.AccessToken", defaultAccessToken, out apiAccessToken);

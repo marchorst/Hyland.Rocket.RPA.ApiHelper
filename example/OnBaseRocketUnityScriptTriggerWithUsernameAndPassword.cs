@@ -64,27 +64,25 @@
                 _app = app;
 
                 // Get Configuration
-                /* TODO */
                 string apiUrl;
                 GetConfigValue("Hyland.RPA.ApiUrl", defaultApiUrl, out apiUrl);
-                /* TODO */
+          
                 string apiClientId;
                 GetConfigValue("Hyland.RPA.ApiClienId", defaultApiClientId, out apiClientId);
 
-              /* Variant B  string heartApiUrl;
-                GetConfigValue("Hyland.RPA.HeartApiClienId", defaultHeartApiUrl, out heartApiUrl);
-                
-                string heartApiUrl;
-                GetConfigValue("Hyland.RPA.IdentityApiClienId", defaultIdentityApiClientId, out heartApiUrl); */
+                /* Variant B  string heartApiUrl;
+                  GetConfigValue("Hyland.RPA.defaultHeartApiUrl", defaultHeartApiUrl, out heartApiUrl);
 
-                /* TODO */
+                  string heartApiUrl;
+                  GetConfigValue("Hyland.RPA.IdentityApiUrl", defaultIdentityApiUrl, out heartApiUrl); 
+                */
+
                 string apiUsername;
                 GetConfigValue("Hyland.RPA.Username", defaultApiUsername, out apiUsername);
-                /* TODO */
+             
                 string apiPassword;
                 GetConfigValue("Hyland.RPA.Password", defaultApiPassword, out apiPassword);
-                /* TODO */
-
+                
                 // Get ProcessorID
                 // Depending on your Property it can be a string or int
                 string processId;
