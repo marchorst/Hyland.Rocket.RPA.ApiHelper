@@ -14,14 +14,15 @@
     {
         private string defaultProcessIdPropertyBagName = "pProcessorID";
         private string defaultProcessId = "1";
-        private string defaultApiUrl = "";
-        // Use this if your API Urls are different hostnames or are different to "/identity" and "/heart"
+
+        private string defaultHeartApiUrl = "";
+        private string defaultIdentityApiUrl = "";
+
         // Better use the new Access Token Variant
-        //Variant B private string defaultHeartApiUrl = "";
-        //Variant B private string defaultIdentityApiUrl = "";
         private string defaultApiClientId = "";
         private string defaultApiUsername = "";
         private string defaultApiPassword = "";
+
         private bool isTaskRedoable = true;
         private RpaTaskType type = RpaTaskType.PRO;
         private string diversity = "";
@@ -64,19 +65,15 @@
                 _app = app;
 
                 // Get Configuration
-                string apiUrl;
-                GetConfigValue("Hyland.RPA.ApiUrl", defaultApiUrl, out apiUrl);
-          
                 string apiClientId;
                 GetConfigValue("Hyland.RPA.ApiClienId", defaultApiClientId, out apiClientId);
 
-                /* Variant B  string heartApiUrl;
-                  GetConfigValue("Hyland.RPA.defaultHeartApiUrl", defaultHeartApiUrl, out heartApiUrl);
-
-                  string heartApiUrl;
-                  GetConfigValue("Hyland.RPA.IdentityApiUrl", defaultIdentityApiUrl, out heartApiUrl); 
-                */
-
+                string heartApiUrl;
+                GetConfigValue("Hyland.RPA.defaultHeartApiUrl", defaultHeartApiUrl, out heartApiUrl);
+                
+                string identityApiUrl;
+                GetConfigValue("Hyland.RPA.IdentityApiUrl", defaultIdentityApiUrl, out identityApiUrl);
+               
                 string apiUsername;
                 GetConfigValue("Hyland.RPA.Username", defaultApiUsername, out apiUsername);
              
@@ -102,7 +99,7 @@
                 RpaApi rpaApi = null;
                 try
                 {
-                    rpaApi = new RpaApi(apiUrl, apiClientId, apiUsername, apiPassword);
+                    rpaApi = new RpaApi(heartApiUrl, identityApiUrl, apiClientId, apiUsername, apiPassword);
                 }
                 catch (Exception e)
                 {

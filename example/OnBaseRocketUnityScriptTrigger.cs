@@ -14,9 +14,12 @@
     {
         private string defaultProcessIdPropertyBagName = "pProcessorID";
         private string defaultProcessId = "1";
+
         private string defaultHeartApiUrl = "";
         private string defaultIdentityApiUrl = "";
+
         private string defaultAccessToken = "";
+        
         private bool isTaskRedoable = true;
         private RpaTaskType type = RpaTaskType.PRO;
         private string diversity = "";
@@ -62,8 +65,8 @@
                 string heartApiUrl;
                 GetConfigValue("Hyland.RPA.HeartApiUrl", defaultHeartApiUrl, out heartApiUrl);
 
-                string heartApiUrl;
-                GetConfigValue("Hyland.RPA.IdentityApiUrl", defaultIdentityApiUrl, out heartApiUrl);
+                string identityApiUrl;
+                GetConfigValue("Hyland.RPA.IdentityApiUrl", defaultIdentityApiUrl, out identityApiUrl);
 
                 string apiAccessToken;
                 GetConfigValue("Hyland.RPA.AccessToken", defaultAccessToken, out apiAccessToken);
