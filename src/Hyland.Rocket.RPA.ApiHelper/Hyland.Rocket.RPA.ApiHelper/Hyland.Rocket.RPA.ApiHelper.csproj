@@ -67,6 +67,7 @@
     <Compile Include="RpaTaskType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Hyland.Rocket.RPA.ApiHelper.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
