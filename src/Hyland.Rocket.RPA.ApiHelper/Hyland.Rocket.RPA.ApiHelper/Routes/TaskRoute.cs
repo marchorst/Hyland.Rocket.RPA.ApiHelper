@@ -63,7 +63,7 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
         /// <param name="taskid">The TaskID</param>
         /// <param name="ignoreSsl">Ignore SSL Validation</param>
         /// <returns>The task object</returns>
-        public List<Task> All(int page = 0, int pageSize = 50, string filter = "", bool ignoreSsl = true)
+        public List<Task> All(int page = 1, int pageSize = 50, string filter = "", bool ignoreSsl = true)
         {
             // Create RPA TASK
             var client = new RestClient(this.DomainWithProtocol + "/api/tasks");
@@ -75,14 +75,17 @@ namespace Hyland.Rocket.RPA.ApiHelper.Routes
             var request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", this.BearerToken);
             request.AddParameter("Filters", filter);
-            request.AddParameter("Page", filter);
-            request.AddParameter("PageSize", filter);
+            request.AddParameter("Page", page);
+            request.AddParameter("PageSize", pageSize);
             var response = client.Execute(request);
-            List<Task> result = null;
+            List<Task> result = new List<Task>();
             try
             {
-                var deserializer = JsonSerializer.Create();
-                result = deserializer.Deserialize<List<Task>>(new JsonTextReader(new StringReader(response.Content)));
+                if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
+                {
+                    var deserializer = JsonSerializer.Create();
+                    result = deserializer.Deserialize<List<Task>>(new JsonTextReader(new StringReader(response.Content)));
+                }
             }
             catch (Exception e)
             {
