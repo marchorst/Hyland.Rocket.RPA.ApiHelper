@@ -24,5 +24,8 @@ namespace Hyland.Rocket.RPA.ApiHelper.Messages
 
         [JsonProperty("checkDiversity")]
         public bool CheckDiversity { get; set; }
+
+        [JsonProperty("priority")]
+        public string Priority { get; set; }
     }
 }

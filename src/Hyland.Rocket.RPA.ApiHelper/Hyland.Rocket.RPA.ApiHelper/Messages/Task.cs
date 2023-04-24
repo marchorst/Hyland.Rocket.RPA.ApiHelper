@@ -27,10 +27,12 @@ namespace Hyland.Rocket.RPA.ApiHelper.Messages
         [JsonProperty("createdAt")]
         public string createdAt { get; set; }
 
-
         [JsonProperty("process.name")]
         public string process { get; set; }
 
         [JsonProperty("runs")] public List<Run> Runs { get; set; }
+
+        [JsonProperty("priority")]
+        public string priority { get; set; }
     }
 }

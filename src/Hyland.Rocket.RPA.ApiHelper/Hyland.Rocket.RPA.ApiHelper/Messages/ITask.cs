@@ -1,6 +1,7 @@
 namespace Hyland.Rocket.RPA.ApiHelper.Messages
 {
     using System.Collections.Generic;
+    using Newtonsoft.Json;
 
     public interface ITask
     {
@@ -12,6 +13,7 @@ namespace Hyland.Rocket.RPA.ApiHelper.Messages
         string closedAt { get; set; }
         string createdAt { get; set; }
         string process { get; set; }
+        string priority { get; set; }
         List<Run> Runs { get; set; }
     }
 }
