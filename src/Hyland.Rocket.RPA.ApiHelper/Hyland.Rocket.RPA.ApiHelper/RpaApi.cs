@@ -17,6 +17,7 @@ namespace Hyland.Rocket.RPA.ApiHelper
     public class RpaApi
     {
         private TasksRoute tasks;
+        private DictionaryRoute dictionaries;
         public string BearerToken { get; set; }
         public string IdentityUrlWithProtocol { get; private set; }
         public string HeartUrlWithProtocol { get; private set; }
@@ -41,6 +42,25 @@ namespace Hyland.Rocket.RPA.ApiHelper
                 }
 
                 return this.tasks;
+            }
+        }
+        /// <summary>
+        /// Get the TasksRoute CRUD
+        /// </summary>
+        public DictionaryRoute Dictionaries
+        {
+            get
+            {
+                if (this.dictionaries == null && !string.IsNullOrEmpty(this.BearerToken))
+                {
+                    this.dictionaries = new DictionaryRoute()
+                    {
+                        BearerToken = this.BearerToken,
+                        DomainWithProtocol = this.HeartUrlWithProtocol
+                    };
+                }
+
+                return this.dictionaries;
             }
         }
 

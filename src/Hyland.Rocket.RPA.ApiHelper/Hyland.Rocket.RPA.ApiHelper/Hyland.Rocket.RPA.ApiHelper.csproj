@@ -52,9 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Messages\CreateRpaTaskBody.cs" />
+    <Compile Include="Messages\Dictionary\Dictionary.cs" />
+    <Compile Include="Messages\Dictionary\DictionaryEntry.cs" />
+    <Compile Include="Messages\Dictionary\IDictionary.cs" />
     <Compile Include="Messages\ITask.cs" />
     <Compile Include="Messages\LoginBody.cs" />
     <Compile Include="Messages\NewTask.cs" />
+    <Compile Include="Routes\DictionaryRoute.cs" />
     <Compile Include="Routes\IRoute.cs" />
     <Compile Include="Routes\TaskRoute.cs" />
     <Compile Include="Routes\TaskWithDiversityAlreadyExistsException.cs" />
