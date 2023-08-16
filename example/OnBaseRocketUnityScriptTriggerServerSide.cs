@@ -1,4 +1,4 @@
-﻿namespace OnBaseRocketUnityScriptTrigger
+namespace OnBaseRocketUnityScriptTriggerServerSide
 {
     using System.Data;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@
     /// <summary>
     /// OnBaseUnityScriptTrigger
     /// </summary>
-    public class OnBaseRocketUnityScriptTrigger : Hyland.Unity.IClientWorkflowScript
+    public class OnBaseRocketUnityScriptTriggerServerSide : Hyland.Unity.IWorkflowScript
     {
         private string defaultProcessIdPropertyBagName = "pProcessorID";
         private string defaultProcessId = "1";
@@ -49,12 +49,12 @@
         public Application _app { get; set; }
 
         /// <summary>
-        /// Implementation of <see cref="IClientWorkflowScript.OnClientWorkflowScriptExecute" />.
-        /// <seealso cref="IClientWorkflowScript" />
+        /// Implementation of <see cref="IWorkflowScript.OnWorkflowScriptExecute" />.
+        /// <seealso cref="IWorkflowScript" />
         /// </summary>
         /// <param name="app"></param>
         /// <param name="args"></param>
-        public void OnClientWorkflowScriptExecute(Hyland.Unity.Application app, Hyland.Unity.ClientWorkflowEventArgs args)
+        public void OnWorkflowScriptExecute(Hyland.Unity.Application app, Hyland.Unity.WorkflowEventArgs args)
         {
             try
             {
