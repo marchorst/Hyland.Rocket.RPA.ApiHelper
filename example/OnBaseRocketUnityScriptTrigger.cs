@@ -136,7 +136,7 @@
         {
             var dt = new DataTable("InputData");
             dt.Columns.Add("DocumentId", typeof(int));
-            dt.Rows.Add(Convert.ToInt32(doc));
+            dt.Rows.Add(Convert.ToInt32(doc.ID));
             return dt;
         }
 		

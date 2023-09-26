@@ -6,12 +6,12 @@ namespace Hyland.Rocket.RPA.ApiHelper.Messages.Dictionary
     {
 
         [JsonProperty("dictionaryEntryId")]
-        public string DictionaryEntryId { get; set; }
+        public int DictionaryEntryId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("value")]
-        public string Value { get; set; }
+        public object Value { get; set; }
     }
 }
